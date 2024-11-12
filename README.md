@@ -1,2 +1,3 @@
 # embedded-rust-devcontainer
-A useful devcontainer image for embedded Rust development
+
+This is simple devcontainer image for embedded Rust development. It includes useful additions such as Renode for simulation.

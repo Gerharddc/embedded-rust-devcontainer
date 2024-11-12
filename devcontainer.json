@@ -1,0 +1,9 @@
+// For format details, see https://aka.ms/devcontainer.json
+{
+    "image": "ghcr.io/gerharddc/embedded-rust-devcontainer:main",
+    "customizations": {
+        "vscode": {
+            "extensions": []
+        }
+    }
+}
