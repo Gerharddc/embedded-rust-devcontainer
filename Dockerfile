@@ -7,10 +7,10 @@ RUN rm packages-microsoft-prod.deb
 
 # Install dependencies (including ones to build Renode)
 RUN apt-get -y update && apt-get -y install \
-    binutils-arm-none-eabi zsh \
+    gdb-multiarch binutils-arm-none-eabi zsh \
     dotnet-sdk-8.0 \
     git automake cmake autoconf libtool g++ coreutils policykit-1 \
-    libgtk2.0-dev uml-utilities gtk-sharp2 python3 python3-pip
+    uml-utilities gtk-sharp3 python3 python3-pip
 
 # Fix git issues with the container running as root
 RUN git config --global --add safe.directory '*'
@@ -19,8 +19,9 @@ RUN git config --global --add safe.directory '*'
 RUN chsh -s $(which zsh)
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
 
-# It is easier to get XML formatted test results with cargo-nextest
+# Install convenient Rust utilities
 RUN curl -LsSf https://get.nexte.st/latest/linux | tar zxf - -C ${CARGO_HOME:-~/.cargo}/bin
+RUN rustup component add clippy
 
 # Install probe-rs to flash and debug our MCU
 RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/probe-rs/probe-rs/releases/latest/download/probe-rs-tools-installer.sh | sh
