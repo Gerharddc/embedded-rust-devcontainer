@@ -31,9 +31,10 @@ RUN probe-rs complete --shell zsh install
 # Compile Renode from source
 RUN git clone https://github.com/renode/renode.git
 RUN cd renode && ./build.sh --net
+ENV PATH="$PATH:/renode"
 
-# Install pyrenode3
-RUN pip install --break-system-packages 'pyrenode3[all] @ git+https://github.com/antmicro/pyrenode3.git'
+# Install renode-test dependencies
+RUN pip install --break-system-packages -r /renode/tests/requirements.txt
 
 # Set the default shell to Zsh
 CMD ["zsh"]
